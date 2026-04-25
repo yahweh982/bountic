@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { fetchBounties } from "@/lib/api/client";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -40,7 +41,7 @@ export default async function HomePage() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="text-xl font-bold tracking-tight flex items-center gap-2">
             <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-              <span className="text-black font-bold text-sm">B</span>
+              <Image src="/logo.png" alt="Bountic" width={28} height={28} className="h-8 w-8 contrast-125" />
             </div>
             <span className="text-zinc-100">Bountic</span>
           </Link>
@@ -273,9 +274,7 @@ export default async function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                <span className="text-black font-bold text-sm">B</span>
-              </div>
+              <Image src="/logo.png" width={32} height={32} alt="Bountic" className="h-8 w-8 contrast-150" />
               <span className="text-zinc-400 text-sm">Bountic — Autonomous USDC bounties</span>
             </div>
             <div className="flex gap-8 text-sm text-zinc-500">
