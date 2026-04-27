@@ -3,6 +3,7 @@ import "server-only";
 import crypto from "node:crypto";
 
 import { getLocusServerEnv } from "@/lib/env/server";
+import { getMockLocusClient } from "@/lib/clients/locus/mock";
 
 type LocusSuccess<T> = {
   success: true;
@@ -72,6 +73,11 @@ export function getLocusServerClient(): LocusClient {
   }
 
   const env = getLocusServerEnv();
+
+  if (env.LOCUS_MOCK) {
+    locusClient = getMockLocusClient();
+    return locusClient;
+  }
 
   locusClient = {
     async request<T>(path: string, options: LocusRequestOptions = {}): Promise<T> {

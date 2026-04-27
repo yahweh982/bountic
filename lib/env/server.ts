@@ -16,11 +16,26 @@ const githubServerEnvSchema = z.object({
   GITHUB_WEBHOOK_SECRET: z.string().min(1),
 });
 
-const locusServerEnvSchema = z.object({
-  LOCUS_API_KEY: z.string().min(1),
-  LOCUS_API_BASE_URL: z.string().url().default("https://beta-api.paywithlocus.com/api"),
-  LOCUS_WEBHOOK_SECRET: z.string().min(1).optional(),
-});
+const locusServerEnvSchema = z
+  .object({
+    LOCUS_MOCK: z
+      .enum(["true", "false"])
+      .optional()
+      .default("false")
+      .transform((value) => value === "true"),
+    LOCUS_API_KEY: z.string().min(1).optional(),
+    LOCUS_API_BASE_URL: z.string().url().default("https://beta-api.paywithlocus.com/api"),
+    LOCUS_WEBHOOK_SECRET: z.string().min(1).optional(),
+  })
+  .superRefine((value, ctx) => {
+    if (!value.LOCUS_MOCK && !value.LOCUS_API_KEY) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "LOCUS_API_KEY is required when LOCUS_MOCK is false",
+        path: ["LOCUS_API_KEY"],
+      });
+    }
+  });
 
 export type SupabaseServerEnv = z.infer<typeof supabaseServerEnvSchema>;
 export type GithubServerEnv = z.infer<typeof githubServerEnvSchema>;
@@ -66,6 +81,7 @@ export function getLocusServerEnv(): LocusServerEnv {
   }
 
   cachedLocusServerEnv = locusServerEnvSchema.parse({
+    LOCUS_MOCK: process.env.LOCUS_MOCK,
     LOCUS_API_KEY: process.env.LOCUS_API_KEY,
     LOCUS_API_BASE_URL: process.env.LOCUS_API_BASE_URL,
     LOCUS_WEBHOOK_SECRET: process.env.LOCUS_WEBHOOK_SECRET,

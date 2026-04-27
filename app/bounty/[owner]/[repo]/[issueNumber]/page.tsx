@@ -269,23 +269,43 @@ export default async function BountyDetailPage(props: Props) {
           {bounty.activity.length === 0 ? (
             <p className="text-sm text-zinc-500">No activity yet.</p>
           ) : (
-            <ul className="space-y-3">
+            <ul className="relative">
               {bounty.activity
                 .slice()
                 .reverse()
-                .map((event) => (
-                  <li
-                    key={event.id}
-                    className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4"
-                  >
-                    <p className="text-sm text-zinc-200">
-                      {renderActivityText(event)}
-                    </p>
-                    <p className="mt-1 text-xs text-zinc-500">
-                      {formatDateTime(event.created_at)}
-                    </p>
-                  </li>
-                ))}
+                .map((event, index, arr) => {
+                  const isFirst = index === 0;
+                  const isLast = index === arr.length - 1;
+
+                  return (
+                    <li key={event.id} className="relative flex gap-4 pb-6 last:pb-0">
+                      {/* Vertical Connecting Line */}
+                      {!isLast && (
+                        <div className="absolute left-3 top-6 bottom-0 w-px -translate-x-1/2 bg-zinc-800" />
+                      )}
+
+                      {/* Timeline Dot */}
+                      <div style={{
+                        borderColor: isFirst ? "green" : undefined,
+                      }} className="relative z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-zinc-800 bg-zinc-950 mt-1">
+                        <div className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.5)]" />
+                      </div>
+
+                      {/* Event Content Box */}
+                      <div className="flex-1 rounded-xl border border-zinc-800/80 bg-zinc-900/50 p-4 transition-colors hover:border-zinc-700 hover:bg-zinc-900/80">
+                        <p className="text-sm text-zinc-200">
+                          {renderActivityText(event)}
+                        </p>
+                        <p className="mt-1.5 text-xs font-medium text-zinc-500">
+                          <Badge variant="outline" className="mr-2 border-zinc-700 bg-zinc-900/80 text-zinc-300">
+                            {event.event_type.replace(/_/g, " ")}
+                          </Badge>
+                          {formatDateTime(event.created_at)}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
             </ul>
           )}
         </CardContent>
