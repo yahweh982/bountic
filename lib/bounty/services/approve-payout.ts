@@ -57,6 +57,7 @@ export async function approveBountyPayout(params: {
     }
   }
 
+  // only single payout for now, later multiple payouts
   const payoutResult = await resolveAndPayout({
     owner: params.owner,
     repo: params.repo,

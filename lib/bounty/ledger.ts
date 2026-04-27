@@ -73,12 +73,11 @@ export function buildBountyActiveBody(
   prUrl?: string,
 ): string {
   const lines = [
-    "⚡️ **Bounty Activated!**",
+    "⚡️ **Bounty Competition Started**",
     "",
-    `A pull request has been opened for this bountied issue.`,
+    `@${prAuthor} opened a pull request that references this bounty.`,
     "",
     `**Bounty:** ${formatAmount(amount)} USDC`,
-    `**PR Author:** @${prAuthor}`,
     "",
   ];
 
@@ -90,7 +89,7 @@ export function buildBountyActiveBody(
   lines.push(
     `Linked Issue: \`${issueId}\``,
     "",
-    "When the PR is merged, the bounty will be locked and ready for payout.",
+    "When this PR is merged, the bounty will be locked and ready for payout approval.",
     "",
     "---",
     "_Bountic: Autonomous USDC bounties for open source_",
@@ -99,15 +98,19 @@ export function buildBountyActiveBody(
   return lines.join("\n");
 }
 
-export function buildLockedCommentBody(issueId: string, amount: number): string {
+export function buildLockedCommentBody(
+  issueId: string,
+  amount: number,
+  winnerUsername: string,
+): string {
   const lines = [
     "🔒 **Bounty Locked**",
     "",
-    `This bounty has been locked after a successful PR merge.`,
+    `@${winnerUsername} your PR was merged. Great work!`,
     "",
     `**Amount:** ${formatAmount(amount)} USDC`,
     "",
-    "The bounty is now ready for payout. A maintainer can approve payment from the Bountic issue page.",
+    "The bounty is now ready for payout. Please wait for the maintainers to release the bounty.",
     "",
     "---",
     "_Bountic: Autonomous USDC bounties for open source_",

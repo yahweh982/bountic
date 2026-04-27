@@ -77,7 +77,7 @@ export default async function HomePage() {
               </div>
               <div className="flex-1 px-4 py-3 text-zinc-300 overflow-x-auto whitespace-nowrap">
                 <span className="text-zinc-500 line-through decoration-red-500/50">github.com</span>
-                <span className="text-emerald-400 font-bold">bountic.com/b</span>
+                <span className="text-emerald-400 font-bold">bountic.vercel.app/b</span>
                 <span>/owner/repo/issues/42</span>
               </div>
             </div>

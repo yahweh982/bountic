@@ -82,12 +82,16 @@ export async function handlePrClosed(eventPayload: unknown) {
 
   const github = await getIssueInstallationClient(owner, repo, payload.installation?.id);
 
-  const body = buildLockedCommentBody(issueId, bounty.total_amount);
+  const body = buildLockedCommentBody(
+    issueId,
+    bounty.total_amount,
+    payload.pull_request.user.login,
+  );
 
   await github.rest.issues.createComment({
     owner,
     repo,
-    issue_number: payload.pull_request.number,
+    issue_number: linkedIssueNumber,
     body,
   });
 

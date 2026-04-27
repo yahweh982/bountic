@@ -39,7 +39,7 @@ const markdownComponents: Components = {
 
 export function IssueMarkdown({ content }: { content: string }) {
   return (
-    <div className="scrollbar-thin-dark prose prose-invert max-h-80 overflow-y-auto pr-2">
+    <div className="scrollbar-thin-dark prose prose-invert max-h-100 overflow-y-auto pr-2">
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
         {content}
       </ReactMarkdown>

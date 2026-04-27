@@ -123,7 +123,7 @@ export async function handleUnclaimedPayout(params: {
     issueNumber: params.issueNumber,
     body: `🎉 Congratulations @${params.winningPrAuthor}! You've won this bounty ($${params.amount.toFixed(2)} USDC).
 
-To claim your payout, please connect your GitHub account at ${env.NEXT_PUBLIC_APP_URL}/connect
+To claim your payout, please connect your [GitHub account](${env.NEXT_PUBLIC_APP_URL}/connect)
 
 Once connected, a maintainer can approve your payout and the funds will be sent to your registered email.`,
   });
