@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SiteShell } from "@/components/site/site-shell";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased dark`}>
       <body className="min-h-full flex flex-col bg-black text-zinc-100">
-        {children}
+        <SiteShell>
+          {children}
+        </SiteShell>
       </body>
     </html>
   );

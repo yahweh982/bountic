@@ -175,3 +175,52 @@ export async function approveBounty(params: {
 
   return res.json();
 }
+
+export type DashboardData = {
+  user: {
+    email: string;
+    github_username: string | null;
+  };
+  funded_bounties: Array<{
+    issue_id: string;
+    owner: string;
+    repo: string;
+    issue_number: number;
+    issue_title: string | null;
+    issue_url: string | null;
+    status: "OPEN" | "LOCKED" | "PAID";
+    total_amount: number;
+    my_funding: number;
+    funded_at: string;
+    paid_at?: string | null;
+    tx_hash?: string | null;
+  }>;
+  won_bounties: Array<{
+    issue_id: string;
+    owner: string;
+    repo: string;
+    issue_number: number;
+    issue_title: string | null;
+    issue_url: string | null;
+    status: "OPEN" | "LOCKED" | "PAID";
+    total_amount: number;
+    paid_at: string | null;
+    tx_hash: string | null;
+    funded_at?: string;
+    my_funding?: number;
+  }>;
+  stats: {
+    total_funded: number;
+    total_won: number;
+    funded_count: number;
+    won_count: number;
+  };
+};
+
+export async function fetchMe(): Promise<DashboardData> {
+  const res = await fetch(`${API_BASE}/api/me`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch user data");
+  }
+  return res.json();
+}

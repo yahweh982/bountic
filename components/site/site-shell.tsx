@@ -1,3 +1,5 @@
+"use client";
+
 import type { ReactNode } from "react";
 
 import { SiteHeader } from "@/components/site/site-header";

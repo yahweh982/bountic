@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { SiteShell } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
 import { fetchBounties } from "@/lib/api/client";
 
@@ -36,7 +35,7 @@ export default async function HomePage() {
   const featuredBounties = await getFeaturedBounties();
 
   return (
-    <SiteShell>
+    <>
       <section className="relative overflow-hidden px-5 pb-16 pt-12 sm:px-8 sm:pt-16">
         <div className="mx-auto max-w-5xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/80 px-3 py-1 text-xs text-zinc-400">
@@ -116,7 +115,7 @@ export default async function HomePage() {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {featuredBounties.slice(0, 3).map((bounty) => (
                 <Link key={bounty.issue_id} href={`/bounty/${bounty.owner}/${bounty.repo}/${bounty.issue_number}`}>
-                  <div className="rounded-2xl border border-zinc-800/80 bg-gradient-to-b from-zinc-900 to-zinc-950 p-5 transition-colors hover:border-emerald-400/50">
+                  <div className="rounded-2xl border border-zinc-800/80 bg-linear-to-b from-zinc-900 to-zinc-950 p-5 transition-colors hover:border-emerald-400/50">
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-xs text-zinc-500">{bounty.owner}/{bounty.repo}</span>
                       <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-0.5 text-xs text-emerald-300">
@@ -197,6 +196,6 @@ export default async function HomePage() {
           </Link>
         </div>
       </section>
-    </SiteShell>
+    </>
   );
 }
